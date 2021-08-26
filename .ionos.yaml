@@ -1,0 +1,18 @@
+---
+distFolder: build
+setup:
+  - name: Setup Node.js 14.x
+    action: actions/setup-node@v1
+    properties:
+      node-version: 14.x
+prepare:
+  name: Prepare Project build environment
+  command: |
+    npm install --global yarn
+    yarn install --frozen-lockfile
+build:
+  name: Build node project
+  command: yarn build
+  environment:
+    SITE_URL: ${{ steps.project.outputs.site-url }}
+    CI: true
